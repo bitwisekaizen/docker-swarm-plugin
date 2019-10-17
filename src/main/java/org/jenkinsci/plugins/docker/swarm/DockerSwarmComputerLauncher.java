@@ -100,11 +100,11 @@ public class DockerSwarmComputerLauncher extends JNLPLauncher {
             final String[] command = new String[] { interpreter, interpreterOptions, fetchAndLaunchCommand };
             launchContainer(command, configuration, envVars, dockerSwarmAgentTemplate.getWorkingDir(),
                     dockerSwarmAgentTemplate.getUser(), dockerSwarmAgentTemplate, listener, computer,
-                    dockerSwarmAgentTemplate.getHostsConfig());
+			    dockerSwarmAgentTemplate.getHostsConfig());
         } else {
             launchContainer(dockerSwarmAgentTemplate.getCommandConfig(), configuration, envVars,
                     dockerSwarmAgentTemplate.getWorkingDir(), dockerSwarmAgentTemplate.getUser(),
-                    dockerSwarmAgentTemplate, listener, computer, dockerSwarmAgentTemplate.getHostsConfig());
+			    dockerSwarmAgentTemplate, listener, computer, dockerSwarmAgentTemplate.getHostsConfig());
         }
     }
 
@@ -140,6 +140,7 @@ public class DockerSwarmComputerLauncher extends JNLPLauncher {
         setAuthHeaders(dockerSwarmAgentTemplate, crReq);
         setDnsIps(dockerSwarmAgentTemplate, crReq);
         setDnsSearchDomains(dockerSwarmAgentTemplate, crReq);
+	setMacAddress(dockerSwarmAgentTemplate, crReq);
 
         this.agentInfo.setServiceRequestJson(crReq.toJsonString());
 
@@ -287,6 +288,12 @@ public class DockerSwarmComputerLauncher extends JNLPLauncher {
         // Add the credentials to the header
         crReq.setAuthHeader(credentials.getUsername(), credentials.getPassword().getPlainText(),
                 dockerSwarmAgentTemplate.getEmail(), dockerSwarmAgentTemplate.getServerAddress());
+    }
+
+    private void setMacAddress(DockerSwarmAgentTemplate dockerSwarmAgentTemplate, ServiceSpec crReq) {
+        if (StringUtils.isNotEmpty(dockerSwarmAgentTemplate.getMacAddress())) {
+            crReq.addMacAddress(dockerSwarmAgentTemplate.getMacAddress());
+        }
     }
 
     private void setDnsIps(DockerSwarmAgentTemplate dockerSwarmAgentTemplate, ServiceSpec crReq) {

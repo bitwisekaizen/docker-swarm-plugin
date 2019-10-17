@@ -37,6 +37,10 @@ public class ServiceSpec extends ApiRequest {
         super(HttpMethod.POST, "", "/services/create", CreateServiceResponse.class, ResponseType.CLASS, null);
     }
 
+    public void addMacAddress(String macAddress) {
+        this.TaskTemplate.ContainerSpec.addMacAddress(macAddress);
+    }
+
     public void addBindVolume(String source, String target) {
         ContainerSpec.Mount mount = ContainerSpec.Mount.bindMount(source, target);
         this.TaskTemplate.ContainerSpec.Mounts.add(mount);

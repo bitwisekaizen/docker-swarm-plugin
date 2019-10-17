@@ -10,6 +10,7 @@ public class ContainerSpec {
     public final String[] Env;
     public final String Dir;
     public final String User;
+    public String MacAddress;
     public DNSConfig DNSConfig;
     public List<Mount> Mounts = new ArrayList<>();
     public final String[] Hosts;
@@ -28,6 +29,10 @@ public class ContainerSpec {
         this.User = user;
         this.Hosts = hosts;
         this.DNSConfig = new DNSConfig();
+    }
+
+    public void addMacAddress(String macAddress) {
+        this.MacAddress = macAddress;
     }
 
     public static class DNSConfig {

@@ -27,6 +27,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
     private String hostBinds;
     private String secrets;
     private String configs;
+    private String macAddress;
     private String dnsIps;
     private String dnsSearchDomains;
     private String label;
@@ -49,7 +50,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
     }
 
     @DataBoundConstructor
-    public DockerSwarmAgentTemplate(final String image, final String hostBinds, final String dnsIps,
+	public DockerSwarmAgentTemplate(final String image, final String hostBinds, final String macAddress, final String dnsIps,
             final String dnsSearchDomains, final String command, final String user, final String workingDir,
             final String hosts, final String secrets, final String configs, final String label, final String cacheDir,
             final String tmpfsDir, final String envVars, final long limitsNanoCPUs, final long limitsMemoryBytes,
@@ -58,6 +59,7 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
             final String serverAddress, final String pullCredentialsId) {
         this.image = image;
         this.hostBinds = hostBinds;
+	this.macAddress = macAddress;
         this.dnsIps = dnsIps;
         this.dnsSearchDomains = dnsSearchDomains;
         this.command = command;
@@ -217,6 +219,10 @@ public class DockerSwarmAgentTemplate implements Describable<DockerSwarmAgentTem
 
     public String getDnsIps() {
         return dnsIps;
+    }
+
+    public String getMacAddress() {
+        return macAddress;
     }
 
     public String getDnsSearchDomains() {

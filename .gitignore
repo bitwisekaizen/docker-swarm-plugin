@@ -1,3 +1,6 @@
+.mvn
+mvnw
+*~
 target/
 .module-cache
 node_modules
